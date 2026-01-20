@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 5000;
 
 //Middleware
 app.use(cors({
-    origin: ["http://localhost:5173", "https://your-frontend.vercel.app"],
+    origin: ["http://localhost:5173", "https://mern-todo-app-coral.vercel.app"],
     credentials: true,
   }));
 app.use(express.json())
