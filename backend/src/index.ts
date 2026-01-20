@@ -10,9 +10,9 @@ const PORT = process.env.PORT || 5000;
 
 //Middleware
 app.use(cors({
-    origin: ["http://localhost:5173", "https://mern-todo-app-coral.vercel.app"],
+    origin: ["http://localhost:5173", process.env.FRONTEND_URL || "https://mern-todo-app-coral.vercel.app"],
     credentials: true,
-  }));
+}));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
@@ -21,11 +21,11 @@ app.use('/api/todos', todoRoutes);
 
 //Mongodb Connection
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/todoapp')
-.then(() => console.log("MongoDB Connected Successfully"))
-.catch((error) => console.error("MongoDB Connection: ", error));
+    .then(() => console.log("MongoDB Connected Successfully"))
+    .catch((error) => console.error("MongoDB Connection: ", error));
 
 app.get('/', (req, res) => {
-    res.json({message: 'TODO API is running!'});
+    res.json({ message: 'TODO API is running!' });
 });
 
 app.listen(PORT, () => {
