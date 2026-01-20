@@ -1,7 +1,15 @@
 import axios from "axios";
 import type { Todo } from "../types/todo";
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const getBaseUrl = () => {
+    let url = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+    if (!url.endsWith('/api')) {
+        url += '/api';
+    }
+    return url;
+};
+
+const API_BASE_URL = getBaseUrl();
 
 const api = axios.create({
     baseURL: API_BASE_URL,
@@ -21,7 +29,7 @@ export const todoApi = {
     create: (data: { title: string; description?: string }) => api.post('/todos', data),
 
     //update todo 
-    update: (id: string, data: Partial<{ title: string; description?: string; completed: boolean}>) => api.put(`/todos/${id}`, data),
+    update: (id: string, data: Partial<{ title: string; description?: string; completed: boolean }>) => api.put(`/todos/${id}`, data),
 
     //toggleStatus of completed
     toggleStatus: (id: string) => api.patch(`/todos/${id}/toggle`),
